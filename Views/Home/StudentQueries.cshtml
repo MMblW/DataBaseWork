@@ -1,0 +1,235 @@
+﻿@model DataBaseWork.Models.StudentQueriesViewModel
+@{
+    ViewData["Title"] = "Результаты запросов";
+}
+
+<div class="container">
+    <h1 class="my-4">@ViewData["Title"]</h1>
+
+    <!-- Запрос 1 -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h2>1. Студенты указанной группы</h2>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>№ зачётки</th>
+                        <th>ФИО</th>
+                        <th>Группа</th>
+                        <th>Дата рождения</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var student in Model.GroupRIS23)
+                    {
+                        <tr>
+                            <td>@student.GradebookNumber</td>
+                            <td>@student.Surname @student.StudentName @student.Patronymic</td>
+                            <td>@student.GroupCode</td>
+                            <td>@student.DateOfBirth.ToShortDateString()</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Запрос 2 -->
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            <h2>2. Студенты, сдавшие указанный экзамен</h2>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ФИО</th>
+                        <th>Оценка</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ProgrammingGrades)
+                    {
+                        <tr>
+                            <td>@item.Surname @item.StudentName @item.Patronymic</td>
+                            <td>@item.Grade</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Запрос 3 -->
+    <div class="card mb-4">
+        <div class="card-header bg-info text-white">
+            <h2>3. Студенты, пересдавшие экзамен</h2>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ФИО</th>
+                        <th>Оценка</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ProgrammingRetakes)
+                    {
+                        <tr>
+                            <td>@item.Surname @item.StudentName @item.Patronymic</td>
+                            <td>@item.Grade</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Запрос 4 -->
+    <div class="card mb-4">
+        <div class="card-header bg-warning text-dark">
+            <h2>4. Списки назначенных на стипендию</h2>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ФИО</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var student in Model.ScholarshipStudents)
+                    {
+                        <tr>
+                            <td>@student.Surname @student.StudentName @student.Patronymic</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Запрос 5 -->
+    <div class="card mb-4">
+        <div class="card-header bg-danger text-white">
+            <h2>5. Дисциплины, которые сдаются на факультете</h2>
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                @foreach (var discipline in Model.HumanitiesDisciplines)
+                {
+                    <li class="list-group-item">@discipline</li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    <!-- Запрос 6 -->
+    <div class="card mb-4">
+        <div class="card-header bg-secondary text-white">
+            <h2>6. Списки для военкомата (Юноши, родившиеся ранее указанной даты)</h2>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ФИО</th>
+                        <th>Дата рождения</th>
+                        <th>Группа</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var student in Model.AdultMaleStudents)
+                    {
+                        <tr>
+                            <td>@student.Surname @student.StudentName @student.Patronymic</td>
+                            <td>@student.DateOfBirth.ToShortDateString()</td>
+                            <td>@student.GroupCode</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Запрос 7 -->
+    <div class="card mb-4">
+        <div class="card-header bg-dark text-white">
+            <h2>7. Списик студентов и их групп указанного факультета</h2>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ФИО</th>
+                        <th>Группа</th>
+                        <th>Специальность</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var student in Model.TechFacultyStudents)
+                    {
+                        <tr>
+                            <td>@student.Surname @student.StudentName @student.Patronymic</td>
+                            <td>@student.GroupCode</td>
+                            <td>@student.SpecialityName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Запрос 8 -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h2>8. Предметы, сдавашиеся указанным студентом в указанный период</h2>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Дисциплина</th>
+                        <th>Оценка</th>
+                        <th>Дата экзамена</th>
+                        <th>Пересдачи</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var exam in Model.StudentExams)
+                    {
+                        <tr>
+                            <td>@exam.DisciplineName</td>
+                            <td>@exam.Grade</td>
+                            <td>@exam.DateOfExamination.ToShortDateString()</td>
+                            <td>@exam.NumberOfReexamination</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        margin-bottom: 20px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .card-header {
+        padding: 10px 15px;
+    }
+
+    .table {
+        margin-bottom: 0;
+    }
+
+    h2 {
+        margin: 0;
+        font-size: 1.3rem;
+    }
+</style>
